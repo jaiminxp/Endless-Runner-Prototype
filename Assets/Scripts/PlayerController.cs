@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false;
     public bool doubleJumpUsed = false;
     public float doubleJumpForce = 8;
+    public bool dash;
 
 
     void Start()
@@ -45,6 +47,18 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
             playerAnim.Play("Running_Jump");
             playerAudio.PlayOneShot(jumpSound, 1.0f);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            dash = true;
+            playerAnim.SetFloat("Speed_Multiplier", 2.0f);
+        }
+        else
+        {
+            dash = false;
+            playerAnim.SetFloat("Speed_Multiplier", 1.0f);
+
         }
     }
 
